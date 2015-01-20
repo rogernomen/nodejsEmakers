@@ -1,0 +1,12 @@
+{
+  "name": "example-api",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "~4.11.0",
+    "body-parser": "~1.10.1",
+    "morgan": "~1.5.1",
+    "mysql": "2.x",
+    "basic-auth": "1.x"
+  }
+}
