@@ -1,6 +1,8 @@
 var Express = require('express');
 var app = Express();
 
+var http = require('http');
+
 var Database = require('./lib/database-mysql');
 var database = new Database();
 
@@ -12,13 +14,18 @@ app.use('/', logger('dev'));
 var compression = require('compression');
 app.use('/', compression());
 
+// When the request is a POST method, its Content-Type must be application/json.
+var checkPostIsJSON = require('./lib/middleware-check-post-is-json');
+app.use('/', checkPostIsJSON);
+
 // Parse the request body if it is a JSON and populate request.body with its contents.
 var bodyParser = require('body-parser');
 app.use('/', bodyParser.json());
 
-// When the request is a POST method, its Content-Type must be application/json.
-var checkPostIsJSON = require('./lib/middleware-check-post-is-json');
-app.use('/', checkPostIsJSON);
+// Catch errors from body-parser.
+app.use('/', function(error, request, response, next){
+    response.status(400).json({error : http.STATUS_CODES[400]});
+});
 
 // Pass the database to all middleware functions through the response object.
 app.use('/', function(request, response, next){
@@ -37,10 +44,6 @@ app.use('/cities', cities);
 // Catch-all middleware that returns info about the request and the response.
 var info = require('./lib/middleware-info');
 app.use('/', info);
-
-// Error handling middleware.
-var errorHandler = require('./lib/middleware-error-handler');
-app.use('/', errorHandler);
 
 // Parse the command line options. Using -p PORT or --port=PORT will change the default port.
 var parseArgs = require('minimist')(process.argv.slice(2), {boolean : true});

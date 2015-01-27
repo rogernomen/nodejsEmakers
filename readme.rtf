@@ -6,11 +6,11 @@
 
 \f0\b\fs28 \cf0 Gu\'eda de estilo de la API
 \f1\b0\fs24 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 \
 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\f0\b\fs26 1. Peticiones
+\f0\b\fs26 \cf0 1. Peticiones
 \f1\b0\fs24 \
 \
 Todas las peticiones se hacen por HTTPS.\
@@ -168,16 +168,9 @@ Cuando hay errores la respuesta tendr\'e1 un c\'f3digo HTTP con un valor 4XX cua
 \
 	500 Internal server error: cuando hay un error en la BD o en otra parte del servidor.\
 \
-El cuerpo de la respuesta es un JSON con un array 'errores' que contiene todos los errores detectados. Cada error tiene un campo obligatorio 'estado' que contiene de nuevo el estado HTTP devuelto, un campo obligatorio 'codigo' con el c\'f3digo del error y un campo opcional 'mensaje' que detalla m\'e1s el error. Lo m\'e1s habitual es que el array contenga s\'f3lo un error, pero p.ej. en el caso de 400 Bad request puede que se hayan detectado varios problemas en la petici\'f3n. Ejemplo:\
+El cuerpo de la respuesta es un JSON con una cadena 'error' que describe el error, p.ej:\
 \
 	\{\
-		"errores" : [\
-			\{\
-				"estado" : 500,\
-				"codigo" : Error interno,\
-				"mensaje" : Error al conectar a la base de datos\
-			\}\
-		]\
+		"error" : "Error interno del servidor. Error al conectar a la base de datos."\
 	\}\
-\
 }
