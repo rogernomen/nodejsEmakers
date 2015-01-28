@@ -14,9 +14,9 @@ app.use('/', logger('dev'));
 var compression = require('compression');
 app.use('/', compression());
 
-// When the request is a POST method, its Content-Type must be application/json.
-var checkPostIsJSON = require('./lib/middleware-check-post-is-json');
-app.use('/', checkPostIsJSON);
+// On a POST or a PUT request, the Content-Type header must be application/json.
+var checkContentTypeIsJSON = require('./lib/middleware-check-content-type-is-json');
+app.use('/', checkContentTypeIsJSON);
 
 // Parse the request body if it is a JSON and populate request.body with its contents.
 var bodyParser = require('body-parser');
@@ -41,9 +41,11 @@ app.use('/', basicAuth);
 var cities = require('./lib/router-cities');
 app.use('/cities', cities);
 
-// Catch-all middleware that returns info about the request and the response.
-var info = require('./lib/middleware-info');
-app.use('/', info);
+// Catch-all middleware that returns 404 not found in a JSON body.
+var notFound = function(request, response, next){
+    response.status(404).json({error : http.STATUS_CODES[404]});
+};
+app.use('/', notFound);
 
 // Parse the command line options. Using -p PORT or --port=PORT will change the default port.
 var parseArgs = require('minimist')(process.argv.slice(2), {boolean : true});
