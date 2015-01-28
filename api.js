@@ -37,6 +37,10 @@ app.use('/', function(request, response, next){
 var basicAuth = require('./lib/middleware-basic-auth-mysql');
 app.use('/', basicAuth);
 
+// Middleware for the /couriers endpoint.
+var couriers = require('./lib/router-couriers');
+app.use('/couriers', couriers);
+
 // Middleware for the /cities endpoint.
 var cities = require('./lib/router-cities');
 app.use('/cities', cities);
