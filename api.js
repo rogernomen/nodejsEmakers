@@ -1,9 +1,6 @@
 var Express = require('express');
 var app = Express();
-
 var http = require('http');
-
-var Database = require('./lib/database-mysql');
 
 // Log every request and response to stdout.
 var logger = require('morgan');
@@ -27,9 +24,13 @@ app.use('/', function(error, request, response, next){
 });
 
 // Pass the database to all middleware functions through the response object.
+var Database = require('./lib/database-mysql/index');
+var database;
 app.use('/', function(request, response, next){
-	var database = new Database(request.hostname);
-	response.locals.database = database;
+    if (!database){
+        database = new Database(request.hostname);
+    }
+    response.locals.database = database;
     next();
 });
 
