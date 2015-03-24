@@ -53,4 +53,77 @@ public class Constants{
 		}
 	};
 
+	public enum DestinationTypes{
+		UNASSIGNED(0),
+		HOUSEHOLD(1),
+		OFFICE(2),
+		PREMISES(3);
+
+		int value;
+
+		public DestinationTypes(int value){
+			this.value = value;
+		}
+
+		public int getValue(){
+			return value;
+		}
+	};
+
+	public enum ServiceTypes{
+		UNASSIGNED(0),
+		NEXT_DAY(1),
+		SAME-DAY(2),
+		RETURN(3),
+		DIRECT(4),
+		INTERNATIONAL(5),
+		CORREO_POSTAL(6),
+		CORREOS_EXPRESS(7);
+
+		int value;
+
+		public ServiceTypes(int value){
+			this.value = value;
+		}
+
+		public int getValue(){
+			return value;
+		}
+	};
+
+	public enum DemandTypes{
+		REGULAR(1),
+		GROUPED(2),
+		RETURN(3);
+
+		int value;
+
+		public DemandTypes(int value){
+			this.value = value;
+		}
+
+		public int getValue(){
+			return value;
+		}
+	};
+
+	public enum StreetTypes{
+		UNASSIGNED(0),
+		CALLE(1),
+		AVENIDA(2),
+		PASEO(3),
+		PLAZA(4),
+		PASAJE(5);
+
+		int value;
+
+		public StreetTypes(int value){
+			this.value = value;
+		}
+
+		public int getValue(){
+			return value;
+		}
+	};
+
 }
