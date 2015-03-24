@@ -51,8 +51,12 @@ var routes = require('./lib/router-routes');
 app.use('/routes', routes);
 
 // Middleware for the /parcels endpoint.
-var routes = require('./lib/router-parcels');
-app.use('/parcels', routes);
+var parcels = require('./lib/router-parcels');
+app.use('/parcels', parcels);
+
+// Middleware for the /drivers endpoint.
+var drivers = require('./lib/router-drivers');
+app.use('/drivers', drivers);
 
 // Catch-all middleware that returns 404 not found in a JSON body.
 var notFound = function(request, response, next){
