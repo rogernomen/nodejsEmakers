@@ -43,7 +43,7 @@ public class Constants{
 	public class ServiceTypes{
 		public static final int UNASSIGNED = 0;
 		public static final int NEXT_DAY = 1;
-		public static final int SAME-DAY = 2;
+		public static final int SAME_DAY = 2;
 		public static final int RETURN = 3;
 		public static final int DIRECT = 4;
 		public static final int INTERNATIONAL = 5;
