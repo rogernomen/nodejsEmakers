@@ -24,13 +24,15 @@ app.use('/', function(error, request, response, next){
 });
 
 // Pass the database to all middleware functions through the response object.
-var Database = require('./lib/database-mysql/index');
-var database;
+var databases;
 app.use('/', function(request, response, next){
-    if (!database){
-        database = new Database(request.hostname);
+    if (!databases){
+        databases = {};
     }
-    response.locals.database = database;
+    if (!databases[request.hostname]){
+        databases[request.hostname] = new Database(request.hostname);
+    }
+    response.locals.database = databases[request.hostname];
     next();
 });
 
