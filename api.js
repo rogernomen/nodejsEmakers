@@ -37,6 +37,12 @@ app.use('/', function(request, response, next){
     next();
 });
 
+// Middleware to ask for authentication credentials if there are none.
+// Useful for endpoints that are meant to be used by a normal user with a browser, like a download.
+// Add as many endpoints as needed.
+var ifNotAuthenticationAsk = require('./lib/middleware-if-not-authentication-ask');
+app.use('/deliveryApp/download', ifNotAuthenticationAsk);
+
 // Middleware to perform HTTP basic authentication on every request.
 var basicAuth = require('./lib/middleware-basic-auth-mysql');
 app.use('/', basicAuth);
@@ -61,9 +67,14 @@ app.use('/parcels', parcels);
 var drivers = require('./lib/router-drivers');
 app.use('/drivers', drivers);
 
-// Middleware for the /drivers endpoint.
+// Middleware for the /agencies endpoint.
 var agencies = require('./lib/router-agencies');
 app.use('/agencies', agencies);
+
+// Middleware for the /deliveryApp endpoint which allows the download of the android app.
+// App files go in /delivery_app_files/
+var deliveryApp = require('./lib/router-delivery-app');
+app.use('/deliveryApp', deliveryApp);
 
 // Catch-all middleware that returns 404 not found in a JSON body.
 var notFound = function(request, response, next){
