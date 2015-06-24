@@ -1,0 +1,1 @@
+directory por the pid file for init.d based systems (like CentOS)

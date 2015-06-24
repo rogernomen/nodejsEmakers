@@ -2,9 +2,14 @@ var Express = require('express');
 var app = Express();
 var http = require('http');
 
-// Log every request and response to stdout.
-var logger = require('morgan');
-app.use('/', logger('dev'));
+// Log every error response to stdout.
+var morgan = require('morgan');
+var morganOptions = {
+	skip: function (request, response){
+		return response.statusCode < 400;
+	}
+}
+app.use('/', morgan('common', morganOptions));
 
 // Compress every response > 1kb if possible.
 var compression = require('compression');
@@ -38,8 +43,7 @@ app.use('/', function(request, response, next){
 });
 
 // Middleware to ask for authentication credentials if there are none.
-// Useful for endpoints that are meant to be used by a normal user with a browser, like a download.
-// Add as many endpoints as needed.
+// Use only on those endpoints that are meant to be used by a normal user with a browser, like a download.
 var ifNotAuthenticationAsk = require('./lib/middleware-if-not-authentication-ask');
 app.use('/deliveryApp/download', ifNotAuthenticationAsk);
 

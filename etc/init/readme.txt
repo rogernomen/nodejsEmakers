@@ -13,4 +13,4 @@ Cómo instalar el script de inicio para Ubuntu:
  
 3) Usar el servicio:
 
- $ sudo service {start | stop | restart}
+ $ sudo service emakers-api {start | stop | restart}
