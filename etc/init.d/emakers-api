@@ -50,7 +50,8 @@ start_it() {
     mkdir -p "$LOG_DIR"
 
     echo "Starting node app ..."
-    $NODE_EXEC "$APP_DIR/$NODE_APP" -p 45443  1>"$LOG_FILE" 2>&1 &
+    cd $APP_DIR
+    $NODE_EXEC "$APP_DIR/$NODE_APP" -p 45443  1>>"$LOG_FILE" 2>&1 &
     echo $! > "$PID_FILE"
     echo "Emakers API started on port 45443 with pid $!"
 }
