@@ -88,7 +88,7 @@ app.use('/', notFound);
 
 // Parse the command line options. Using -p PORT or --port=PORT will change the default port.
 var parseArgs = require('minimist')(process.argv.slice(2), {boolean : true});
-var port = parseArgs.p || parseArgs.port || 3000;
+var port = parseArgs.p || parseArgs.port || 45443;
 
 // Start the server.
 var Server = require('./lib/server');
