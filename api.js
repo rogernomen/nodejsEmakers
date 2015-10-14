@@ -6,7 +6,8 @@ var http = require('http');
 var morgan = require('morgan');
 var morganOptions = {
 	skip: function (request, response){
-		return response.statusCode < 400;
+		return false;
+		//return response.statusCode < 400;
 	}
 }
 app.use('/', morgan('common', morganOptions));
