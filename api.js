@@ -1,6 +1,10 @@
 var Express = require('express');
 var app = Express();
 var http = require('http');
+var cors = require('cors');
+
+// CORS compatibility
+app.use(cors());
 
 // Log every error response to stdout.
 var morgan = require('morgan');
@@ -28,6 +32,7 @@ app.use('/', bodyParser.json());
 app.use('/', function(error, request, response, next){
     response.status(400).json({error : http.STATUS_CODES[400]});
 });
+
 
 // Pass the database to all middleware functions through the response object.
 var Database = require('./lib/database-mysql/index');
@@ -75,6 +80,10 @@ app.use('/drivers', drivers);
 // Middleware for the /agencies endpoint.
 var agencies = require('./lib/router-agencies');
 app.use('/agencies', agencies);
+
+// Middleware for the /particularUusers endpoint.
+var particularUsers = require('./lib/router-particularUsers');
+app.use('/particularUsers', particularUsers);
 
 // Middleware for the /deliveryApp endpoint which allows the download of the android app.
 // App files go in /delivery_app_files/
